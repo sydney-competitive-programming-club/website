@@ -238,15 +238,6 @@ function Events() {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-AU', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   const formatTime = (timeString: string) => {
     const [hours, minutes] = timeString.split(':');
