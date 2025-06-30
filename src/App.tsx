@@ -1,24 +1,233 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 function App() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+      
+      // Handle scroll-based animations
+      const qaItems = document.querySelectorAll('.qa-item[data-aos="fade-up"]');
+      qaItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        if (rect.top < windowHeight * 0.8) {
+          item.classList.add('aos-animate');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Trigger on mount for items already in view
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <nav className={`nav ${isScrolled ? 'nav-scrolled' : ''}`}>
+        <div className="nav-container">
+          <div className="logo">
+            <img src="/logo_full_white_4x.png" alt="SCPC Logo" />
+          </div>
+          <div className="nav-links desktop-nav">
+            <Link to="/about" className="nav-button">About</Link>
+            <Link to="/events" className="nav-button">Events</Link>
+            <button className="nav-button">Challenges</button>
+            <button className="nav-button primary">
+              Sign In
+            </button>
+          </div>
+          <button 
+            className="mobile-menu-toggle"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <span className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
+        <div className={`mobile-nav ${isMobileMenuOpen ? 'mobile-nav-open' : ''}`}>
+          <Link to="/about" className="nav-button mobile">About</Link>
+          <Link to="/events" className="nav-button mobile">Events</Link>
+          <button className="nav-button mobile">Challenges</button>
+          <button className="nav-button primary mobile">
+            Sign In
+          </button>
+        </div>
+      </nav>
+
+      <main>
+        <div className="hero">
+          <img src="/logo_full_white_4x.png" alt="Sydney Competitive Programming Club" className="hero-logo" />
+        </div>
+
+        <div className="qa-section">
+          <div className="qa-container">
+            
+            <div className="qa-item" data-aos="fade-up">
+              <h2 className="question">Who are we?</h2>
+              <div className="answer">
+                <p>Hey! We're just a bunch of students at the University of Sydney who love solving coding problems & figured it'd be more fun to do it together. 
+                Started in 2024, we're pretty new but super passionate about competitive programming. Think of us as your coding study group, 
+                but with more algorithms and less stress about assignments</p>
+                <p>We run weekly coding sessions, help each other prep for tech interviews, and basically just hang out while getting better at programming.</p>
+                <p>Want to know more about our team and what we're all about? Check: <a href="/about" className="link">detailed story and meet the team</a></p>
+              </div>
+            </div>
+
+            <div className="qa-item" data-aos="fade-up">
+              <h2 className="question">What kind of competitions?</h2>
+              <div className="answer">
+                <p>We're all about <strong>competitive programming challenges</strong>: those brain-bending problems that make you think 
+                "how the heck do I solve this efficiently?" Think problems like finding the shortest path through a maze, optimizing resource allocation, 
+                or figuring out complex patterns in data. We practice on platforms like Codeforces, AtCoder, and LeetCode, and we organize our own friendly competitions too.</p>
+                <p>The big goal? Getting ready for major competitions like <strong>ICPC</strong> and representing USYD!
+                Practicing these problems also helps you prepare for <strong>technical interviews and online assessments</strong> for job opportunities, 
+                as companies heavily emphasize algorithmic problem-solving to evaluate candidates' logical thinking, coding skills, and ability to handle complexity under pressure.</p>
+                <p>This practice can also generally improve your ability to tackle any coding task in your degree by strengthening critical thinking and problem-solving skills. 
+                Even if you're just starting out, we've got beginner-friendly contests to get you going.</p>
+              </div>
+            </div>
+
+            <div className="qa-item" data-aos="fade-up">
+              <h2 className="question">What is ICPC and SPAR?</h2>
+              <div className="answer">
+                <p><strong>ICPC (International Collegiate Programming Contest)</strong> is basically the Olympics of competitive programming! 
+                Teams of 3 students work together to solve complex algorithmic problems under time pressure. It's intense, it's fun, 
+                  and it's a great way to test your skills against the best programmers worldwide. Learn more: <a href='https://sppcontests.org/south-pacific-icpc/' target="_blank" rel="noopener noreferrer" className="link">ICPC</a>. </p>
+                <p><strong>SPAR (South Pacific Region)</strong> is our regional competition. 
+                  Check out <a href="https://sppcontests.org/about/" target="_blank" rel="noopener noreferrer" className="link">about SPAR</a> - this is where we compete against other universities in our region. Get ready with these SPAR contests and show off later in the ICPC regional contests to proceed to further international contests!</p>
+                <p>Don't worry if this sounds intimidating - we train together and build up to these competitions step by step. 
+                Everyone starts somewhere, and we're here to help you level up! 🚀</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="home-sections">
+          <div className="sections-container">
+            <div className="explore">
+              <div className="explore-window">
+                <div className="reflection"></div>
+                <h3 className="section-title">Explore</h3>
+                <Link to="/events" className="section-button">
+                  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  View Events
+                </Link>
+              </div>
+            </div>
+
+            <div className="connect">
+              <div className="connect-window">
+                <div className="reflection"></div>
+                <div className="glow"></div>
+                <h3 className="section-title">Get Connected</h3>
+                <div className="connect-buttons">
+                  <a href="https://discord.gg/uhZbmVcpS7" target="_blank" rel="noopener noreferrer" className="section-button primary">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/>
+                    </svg>
+                    Discord
+                  </a>
+                  <a href="https://www.instagram.com/scpc_usyd/" target="_blank" rel="noopener noreferrer" className="section-button secondary">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12.017 0C8.396 0 8.002.01 6.78.048 2.979.206.206 2.979.048 6.78.01 8.002 0 8.396 0 12.017c0 3.624.01 4.021.048 5.242.158 3.8 2.931 6.574 6.732 6.732 1.222.038 1.618.048 5.242.048 3.624 0 4.021-.01 5.242-.048 3.8-.158 6.574-2.931 6.732-6.732.038-1.221.048-1.618.048-5.242 0-3.624-.01-4.021-.048-5.242C23.832 2.979 21.062.206 17.259.048 16.037.01 15.641 0 12.017 0zM12.017 2.17c3.556 0 3.97.01 5.37.048 2.948.134 4.282 1.481 4.415 4.415.038 1.399.048 1.813.048 5.37 0 3.556-.01 3.97-.048 5.37-.134 2.948-1.481 4.282-4.415 4.415-1.399.038-1.813.048-5.37.048-3.556 0-3.97-.01-5.37-.048-2.948-.134-4.282-1.481-4.415-4.415-.038-1.399-.048-1.813-.048-5.37 0-3.556.01-3.97.048-5.37.134-2.948 1.481-4.282 4.415-4.415 1.399-.038 1.813-.048 5.37-.048zm0 3.692c-3.13 0-5.657 2.527-5.657 5.657 0 3.13 2.527 5.657 5.657 5.657 3.13 0 5.657-2.527 5.657-5.657 0-3.13-2.527-5.657-5.657-5.657zm0 9.315c-2.021 0-3.658-1.637-3.658-3.658 0-2.021 1.637-3.658 3.658-3.658 2.021 0 3.658 1.637 3.658 3.658 0 2.021-1.637 3.658-3.658 3.658zm7.188-9.539c0 .731-.593 1.324-1.324 1.324-.731 0-1.324-.593-1.324-1.324 0-.731.593-1.324 1.324-1.324.731 0 1.324.593 1.324 1.324z"/>
+                    </svg>
+                    Instagram
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-grid">
+            <div className="footer-section">
+              <h3>About SCPC</h3>
+              <p>
+                Sydney Competitive Programming Club is dedicated to helping students improve their 
+                algorithmic thinking and competitive programming skills.
+              </p>
+            </div>
+            <div className="footer-section">
+              <h3>Quick Links</h3>
+              <ul className="footer-links">
+                <li>
+                  <a href="/problems">Practice Problems</a>
+                </li>
+                <li>
+                  <a href="/competitions">Competitions</a>
+                </li>
+                <li>
+                  <a href="/resources">Resources</a>
+                </li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h3>Connect With Us</h3>
+              <div className="social-links">
+                <a 
+                  href="https://discord.gg/scpc" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Discord"
+                >
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/>
+                  </svg>
+                </a>
+                <a 
+                  href="https://github.com/scpc-org" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="GitHub"
+                >
+                  <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                  </svg>
+                </a>
+                <a 
+                  href="mailto:contact@scpc.org.au"
+                  title="Email"
+                >
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>
+              &copy; 2025 Sydney Competitive Programming Club
+            </p>
+            <p>
+              Developed by James Zhao
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
