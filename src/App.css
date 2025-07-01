@@ -59,12 +59,11 @@ main {
 }
 
 .nav-scrolled {
-  padding: 0.5rem 0;
-  background: rgba(57, 57, 57, 0.85);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(85, 85, 85, 0.5);
+  padding: 0.25rem 0;
+  background: rgba(25, 25, 25, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  /* box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6); */
 }
 
 .nav-container {
@@ -91,6 +90,38 @@ main {
 .logo img {
   height: 100%;
   width: auto;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Logo visibility states */
+
+.logo-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.logo-hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.logo-from-hero {
+  animation: logoFromHero 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes logoFromHero {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .nav-links {
@@ -126,8 +157,10 @@ main {
 
 .nav-button.active {
   color: #FF4815;
-  background: rgba(255, 72, 21, 0.1);
-  border: 1px solid rgba(255, 72, 21, 0.3);
+  background: rgba(255, 72, 21, 0.15);
+  border: 1px solid rgba(255, 72, 21, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 72, 21, 0.2);
+  transform: translateY(-1px);
 }
 
 .nav-button.primary {
@@ -214,6 +247,13 @@ main {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.nav-button.mobile.active {
+  color: #FF4815;
+  background: rgba(255, 72, 21, 0.15);
+  border: 1px solid rgba(255, 72, 21, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 72, 21, 0.2);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .desktop-nav {
@@ -238,6 +278,23 @@ main {
   
   .nav-scrolled .logo {
     height: 28px;
+  }
+
+  /* Mobile logo visibility states */
+  .logo-hidden {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  
+  @keyframes logoFromHero {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
 }
 
@@ -283,6 +340,13 @@ main {
   position: relative;
   z-index: 20;
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-logo-hidden {
+  opacity: 0;
+  transform: translateY(-50px) scale(0.8);
+  pointer-events: none;
 }
 
 @keyframes fadeInUp {
