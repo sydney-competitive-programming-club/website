@@ -67,9 +67,6 @@ function App() {
             <div className="explore">
               <div className="explore-window">
                 <h3 className="section-title">Explore</h3>
-                <p className="section-description">
-                  Upcoming events & competitions
-                </p>
                 <Link to="/events" className="section-button">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -82,9 +79,6 @@ function App() {
             <div className="connect">
               <div className="connect-window">
                 <h3 className="section-title">Get Connected</h3>
-                <p className="section-description">
-                  Join our community
-                </p>
                 <div className="connect-buttons">
                   <a href="https://discord.gg/uhZbmVcpS7" target="_blank" rel="noopener noreferrer" className="section-button primary">
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
