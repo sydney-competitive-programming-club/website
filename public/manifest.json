@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SCPC main site",
+  "name": "SCPC | Sydney Competitive Programming Club",
+  "description": "The Sydney Competitive Programming Club (SCPC) is a community of students at the University of Sydney passionate about competitive programming, algorithmic problem-solving, and preparing for contests.",
   "icons": [
     {
       "src": "favicon.ico",
