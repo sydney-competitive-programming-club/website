@@ -448,4 +448,5 @@ class MockService {
   }
 }
 
-export default new MockService();
+const mockService = new MockService();
+export default mockService;

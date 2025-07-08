@@ -103,4 +103,5 @@ export class ApiError extends Error {
   }
 }
 
-export default new ApiService();
+const apiService = new ApiService();
+export default apiService;
