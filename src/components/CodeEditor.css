@@ -1,0 +1,109 @@
+.code-editor-container {
+  border: 1px solid #3c3c3c;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1e1e1e;
+  position: relative;
+}
+
+.code-editor-container .monaco-editor {
+  border-radius: 8px;
+}
+
+.code-editor-container .monaco-editor .margin {
+  background-color: #1e1e1e;
+}
+
+.code-editor-container .monaco-editor .monaco-editor-background {
+  background-color: #1e1e1e;
+}
+
+.code-editor-container .monaco-editor .current-line {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.code-editor-container .monaco-editor .line-numbers {
+  color: #858585;
+}
+
+.code-editor-container .monaco-editor .cursor {
+  background-color: #ffffff;
+}
+
+/* Custom scrollbar styling */
+.code-editor-container .monaco-scrollable-element > .scrollbar {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.code-editor-container .monaco-scrollable-element > .scrollbar > .slider {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.code-editor-container .monaco-scrollable-element > .scrollbar > .slider:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Error and warning styling */
+.code-editor-container .monaco-editor .squiggly-error {
+  background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2-2 l1 0 l2 2 l1 0' stroke='%23ff1212' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+.code-editor-container .monaco-editor .squiggly-warning {
+  background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2-2 l1 0 l2 2 l1 0' stroke='%23ffa500' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+.code-editor-container .monaco-editor .squiggly-info {
+  background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2-2 l1 0 l2 2 l1 0' stroke='%2300bfff' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+/* Syntax highlighting improvements */
+.code-editor-container .monaco-editor .token.keyword {
+  color: #569cd6;
+}
+
+.code-editor-container .monaco-editor .token.string {
+  color: #ce9178;
+}
+
+.code-editor-container .monaco-editor .token.comment {
+  color: #6a9955;
+}
+
+.code-editor-container .monaco-editor .token.number {
+  color: #b5cea8;
+}
+
+.code-editor-container .monaco-editor .token.regexp {
+  color: #d16969;
+}
+
+.code-editor-container .monaco-editor .token.type {
+  color: #4ec9b0;
+}
+
+.code-editor-container .monaco-editor .token.class {
+  color: #4ec9b0;
+}
+
+.code-editor-container .monaco-editor .token.function {
+  color: #dcdcaa;
+}
+
+.code-editor-container .monaco-editor .token.variable {
+  color: #9cdcfe;
+}
+
+/* Loading state */
+.code-editor-container.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background-color: #1e1e1e;
+}
+
+.code-editor-container.loading::before {
+  content: "Loading editor...";
+  color: #858585;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+}

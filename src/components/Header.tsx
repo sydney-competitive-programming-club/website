@@ -65,7 +65,7 @@ function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
           <Link to="/" className={getNavButtonClass('/')}>Home</Link>
           <Link to="/about" className={getNavButtonClass('/about')}>About</Link>
           <Link to="/events" className={getNavButtonClass('/events')}>Events</Link>
-          <button className="nav-button">Challenges</button>
+          <Link to="/challenges" className={getNavButtonClass('/challenges')}>Challenges</Link>
           <button className="nav-button primary">
             Sign In
           </button>
@@ -86,7 +86,7 @@ function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
         <Link to="/" className={`${getNavButtonClass('/')} mobile`}>Home</Link>
         <Link to="/about" className={`${getNavButtonClass('/about')} mobile`}>About</Link>
         <Link to="/events" className={`${getNavButtonClass('/events')} mobile`}>Events</Link>
-        <button className="nav-button mobile">Challenges</button>
+        <Link to="/challenges" className={`${getNavButtonClass('/challenges')} mobile`}>Challenges</Link>
         <button className="nav-button primary mobile">
           Sign In
         </button>
