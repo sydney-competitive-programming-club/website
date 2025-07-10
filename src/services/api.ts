@@ -59,16 +59,18 @@ class ApiService {
   }
 
   public async get<T>(endpoint: string, params?: Record<string, any>): Promise<T> {
-    const url = new URL(endpoint, this.baseURL);
+    let finalEndpoint = endpoint;
     if (params) {
+      const url = new URL(endpoint, this.baseURL);
       Object.entries(params).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
           url.searchParams.append(key, String(value));
         }
       });
+      finalEndpoint = url.pathname + url.search;
     }
     
-    return this.request<T>(url.pathname + url.search);
+    return this.request<T>(finalEndpoint);
   }
 
   public async post<T>(endpoint: string, data?: any): Promise<T> {
