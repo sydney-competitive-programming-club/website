@@ -89,6 +89,8 @@ class ChallengeService {
       return response;
     } catch (error) {
       console.error('Error fetching challenges:', error);
+      console.error('Filters:', filters);
+      console.error('API URL:', apiService.get('/api/problems', filters));
       throw error;
     }
   }

@@ -148,6 +148,53 @@
   transform: translateY(0);
 }
 
+/* Authentication Form Styles */
+.debug-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.debug-password-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.debug-password-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.debug-auth-error {
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+}
+
+.debug-auth-hint {
+  font-size: 10px;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.debug-logout-btn {
+  background: #dc2626 !important;
+}
+
+.debug-logout-btn:hover {
+  background: #b91c1c !important;
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .debug-panel {
