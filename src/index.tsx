@@ -7,6 +7,7 @@ import About from './About';
 import Events from './Events';
 import Challenges from './Challenges';
 import Challenge from './Challenge';
+import Admin from './Admin';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -21,6 +22,7 @@ root.render(
         <Route path="/events" element={<Events />} />
         <Route path="/challenges" element={<Challenges />} />
         <Route path="/challenges/:challengeId" element={<Challenge />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   </React.StrictMode>
