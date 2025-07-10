@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import DebugPanel from './components/DebugPanel';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
 import { apiService, Challenge } from './services';
@@ -94,6 +95,7 @@ function Challenges() {
   return (
     <div className="app">
       <Header />
+      <DebugPanel />
 
       <main>
         <div className="challenges-content">
