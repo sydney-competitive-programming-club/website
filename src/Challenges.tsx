@@ -153,36 +153,31 @@ function Challenges() {
                 <p>Loading challenges...</p>
               </div>
             ) : (
-              <div className="challenges-grid">
-                {filteredChallenges.map((challenge, index) => (
+              <div className="challenges-list">
+                {filteredChallenges.map((challenge) => (
                   <Link 
                     key={challenge.id} 
                     to={`/challenges/${challenge.id}`} 
-                    className="challenge-card" 
-                    data-aos="fade-up" 
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="challenge-item"
                   >
-                    <div className="challenge-header">
+                    <div className="challenge-info">
                       <div className="challenge-title-row">
                         <h3 className="challenge-title">{challenge.title}</h3>
                         {getStatusIcon(challenge)}
                       </div>
-                      <div className="challenge-meta">
-                        <span 
-                          className="difficulty-badge"
-                          style={{ backgroundColor: getDifficultyColor(challenge.difficulty) }}
-                        >
-                          {challenge.difficulty}
-                        </span>
+                      <div className="challenge-tags">
+                        {challenge.tags.map(tag => (
+                          <span key={tag} className="tag">{tag}</span>
+                        ))}
                       </div>
                     </div>
-                    
-                    <p className="challenge-description">{challenge.description}</p>
-                    
-                    <div className="challenge-tags">
-                      {challenge.tags.map(tag => (
-                        <span key={tag} className="tag">{tag}</span>
-                      ))}
+                    <div className="challenge-meta">
+                      <span 
+                        className="difficulty-badge"
+                        style={{ backgroundColor: getDifficultyColor(challenge.difficulty) }}
+                      >
+                        {challenge.difficulty}
+                      </span>
                     </div>
                   </Link>
                 ))}
