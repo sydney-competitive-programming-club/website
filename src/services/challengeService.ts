@@ -85,12 +85,12 @@ class ChallengeService {
   // Get all challenges with optional filters
   async getChallenges(filters?: ChallengeFilters): Promise<Challenge[]> {
     try {
-      const response = await apiService.get<Challenge[]>('/api/problems', filters);
+      const response = await apiService.get<Challenge[]>('/api/challenges/', filters);
       return response;
     } catch (error) {
       console.error('Error fetching challenges:', error);
       console.error('Filters:', filters);
-      console.error('API URL:', apiService.get('/api/problems', filters));
+      console.error('API URL:', '/api/challenges/');
       throw error;
     }
   }
@@ -98,7 +98,7 @@ class ChallengeService {
   // Get a specific challenge by ID
   async getChallenge(id: string): Promise<ChallengeData | null> {
     try {
-      const response = await apiService.get<ChallengeData>(`/api/problems/${id}`);
+      const response = await apiService.get<ChallengeData>(`/api/challenges/${id}`);
       return response;
     } catch (error) {
       if (error instanceof ApiError && error.status === 404) {
@@ -112,7 +112,11 @@ class ChallengeService {
   // Submit code for execution
   async submitCode(submission: SubmissionRequest): Promise<SubmissionResponse> {
     try {
-      const response = await apiService.post<SubmissionResponse>('/api/submissions', submission);
+      const response = await apiService.post<SubmissionResponse>('/api/code/submit', {
+        challenge_id: submission.problemId,
+        code: submission.code,
+        language: submission.language
+      });
       return response;
     } catch (error) {
       console.error('Error submitting code:', error);
@@ -123,7 +127,8 @@ class ChallengeService {
   // Test code against test cases (without saving submission)
   async testCode(submission: SubmissionRequest): Promise<TestResult[]> {
     try {
-      const response = await apiService.post<TestResult[]>(`/api/problems/${submission.problemId}/test`, {
+      const response = await apiService.post<TestResult[]>('/api/code/test', {
+        challenge_id: submission.problemId,
         code: submission.code,
         language: submission.language
       });
@@ -145,13 +150,12 @@ class ChallengeService {
     }
   }
 
-  // Get user's submission history for a problem
+  // Get user's submission history for a problem (Note: backend doesn't have this endpoint yet)
   async getSubmissionHistory(problemId: string, limit: number = 10): Promise<SubmissionResponse[]> {
     try {
-      const response = await apiService.get<SubmissionResponse[]>(`/api/problems/${problemId}/submissions`, {
-        limit
-      });
-      return response;
+      // This endpoint doesn't exist in backend yet, return empty array
+      console.warn('Submission history endpoint not implemented in backend yet');
+      return [];
     } catch (error) {
       console.error('Error fetching submission history:', error);
       throw error;
