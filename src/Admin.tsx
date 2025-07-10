@@ -6,6 +6,7 @@ import DebugPanel from './components/DebugPanel';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
 import { apiService } from './services';
+import api from './services/api';
 import './Admin.css';
 
 const ADMIN_PASSWORD = 'general.scpc@gmail.com';
@@ -37,12 +38,19 @@ function Admin() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [newChallenge, setNewChallenge] = useState<Partial<Challenge>>({
+  const [newChallenge, setNewChallenge] = useState<Partial<Challenge & {
+    tagsString: string;
+    constraintsString: string;
+    hintsString: string;
+  }>>({
     difficulty: 'Easy',
     tags: [],
+    tagsString: '',
     examples: [{ input: '', output: '' }],
     constraints: [],
+    constraintsString: '',
     hints: [],
+    hintsString: '',
     starterCode: { python: '' },
     testCases: [{ input: '', expectedOutput: '' }],
     solution: { python: '' }
@@ -94,18 +102,21 @@ function Admin() {
     try {
       const challengeData = {
         ...newChallenge,
-        tags: typeof newChallenge.tags === 'string' 
-          ? (newChallenge.tags as string).split(',').map(tag => tag.trim())
-          : newChallenge.tags || [],
-        constraints: typeof newChallenge.constraints === 'string'
-          ? (newChallenge.constraints as string).split('\n').filter(c => c.trim())
-          : newChallenge.constraints || [],
-        hints: typeof newChallenge.hints === 'string'
-          ? (newChallenge.hints as string).split('\n').filter(h => h.trim())
-          : newChallenge.hints || []
+        tags: newChallenge.tagsString 
+          ? newChallenge.tagsString.split(',').map(tag => tag.trim())
+          : [],
+        constraints: newChallenge.constraintsString
+          ? newChallenge.constraintsString.split('\n').filter(c => c.trim())
+          : [],
+        hints: newChallenge.hintsString
+          ? newChallenge.hintsString.split('\n').filter(h => h.trim())
+          : []
       };
+      
+      // Remove the string fields before sending to API
+      const { tagsString, constraintsString, hintsString, ...apiData } = challengeData;
 
-      await apiService.post('/api/challenges/', challengeData);
+      await api.post('/api/challenges/', apiData);
       alert('Challenge created successfully!');
       setShowCreateForm(false);
       fetchChallenges();
@@ -114,9 +125,12 @@ function Admin() {
       setNewChallenge({
         difficulty: 'Easy',
         tags: [],
+        tagsString: '',
         examples: [{ input: '', output: '' }],
         constraints: [],
+        constraintsString: '',
         hints: [],
+        hintsString: '',
         starterCode: { python: '' },
         testCases: [{ input: '', expectedOutput: '' }],
         solution: { python: '' }
@@ -130,7 +144,7 @@ function Admin() {
   const handleDeleteChallenge = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this challenge?')) {
       try {
-        await apiService.delete(`/api/challenges/${id}`);
+        await api.delete(`/api/challenges/${id}`);
         alert('Challenge deleted successfully!');
         fetchChallenges();
       } catch (error) {
@@ -248,8 +262,8 @@ function Admin() {
                       <label>Tags (comma separated):</label>
                       <input
                         type="text"
-                        value={Array.isArray(newChallenge.tags) ? newChallenge.tags.join(', ') : newChallenge.tags || ''}
-                        onChange={(e) => setNewChallenge({...newChallenge, tags: e.target.value})}
+                        value={newChallenge.tagsString || ''}
+                        onChange={(e) => setNewChallenge({...newChallenge, tagsString: e.target.value})}
                       />
                     </div>
                   </div>
@@ -299,8 +313,17 @@ function Admin() {
                   <div className="form-group">
                     <label>Constraints (one per line):</label>
                     <textarea
-                      value={Array.isArray(newChallenge.constraints) ? newChallenge.constraints.join('\n') : newChallenge.constraints || ''}
-                      onChange={(e) => setNewChallenge({...newChallenge, constraints: e.target.value})}
+                      value={newChallenge.constraintsString || ''}
+                      onChange={(e) => setNewChallenge({...newChallenge, constraintsString: e.target.value})}
+                      rows={3}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Hints (one per line):</label>
+                    <textarea
+                      value={newChallenge.hintsString || ''}
+                      onChange={(e) => setNewChallenge({...newChallenge, hintsString: e.target.value})}
                       rows={3}
                     />
                   </div>
