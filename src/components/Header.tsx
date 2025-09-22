@@ -47,6 +47,10 @@ function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   const getNavButtonClass = (path: string) => {
     return location.pathname === path ? 'nav-button active' : 'nav-button';
   };
@@ -64,11 +68,7 @@ function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
         <div className="nav-links desktop-nav">
           <Link to="/" className={getNavButtonClass('/')}>Home</Link>
           <Link to="/about" className={getNavButtonClass('/about')}>About</Link>
-          <Link to="/events" className={getNavButtonClass('/events')}>Events</Link>
-          <Link to="/challenges" className={getNavButtonClass('/challenges')}>Challenges</Link>
-          <button className="nav-button primary">
-            Sign In
-          </button>
+          <Link to="/gym" className={getNavButtonClass('/gym')}>Gym</Link>
         </div>
         <button 
           className="mobile-menu-toggle"
@@ -83,13 +83,27 @@ function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
         </button>
       </div>
       <div className={`mobile-nav ${isMobileMenuOpen ? 'mobile-nav-open' : ''}`}>
-        <Link to="/" className={`${getNavButtonClass('/')} mobile`}>Home</Link>
-        <Link to="/about" className={`${getNavButtonClass('/about')} mobile`}>About</Link>
-        <Link to="/events" className={`${getNavButtonClass('/events')} mobile`}>Events</Link>
-        <Link to="/challenges" className={`${getNavButtonClass('/challenges')} mobile`}>Challenges</Link>
-        <button className="nav-button primary mobile">
-          Sign In
-        </button>
+        <Link 
+          to="/" 
+          className={`${getNavButtonClass('/')} mobile`}
+          onClick={closeMobileMenu}
+        >
+          Home
+        </Link>
+        <Link 
+          to="/about" 
+          className={`${getNavButtonClass('/about')} mobile`}
+          onClick={closeMobileMenu}
+        >
+          About
+        </Link>
+        <Link 
+          to="/gym" 
+          className={`${getNavButtonClass('/gym')} mobile`}
+          onClick={closeMobileMenu}
+        >
+          Gym
+        </Link>
       </div>
     </nav>
   );

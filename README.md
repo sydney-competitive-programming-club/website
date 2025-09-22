@@ -4,7 +4,7 @@ Official website for Sydney Competitive Programming Club at University of Sydney
 
 ## 🚀 About
 
-The Sydney Competitive Programming Club (SCPC) is a community of students at the University of Sydney passionate about competitive programming, algorithmic problem-solving, and preparing for contests like ICPC.
+The Sydney Competitive Programming Club (SCPC) is a community of students at the University of Sydney passionate about competitive programming, algorithmic problem-solving, and preparing for contests like ICPC. The site now focuses on being a clean entry point with quick links out to our external platforms (Instagram for events, Discord for community chat) and a single in-house “Gym” page that curates the practice ladders everyone can work through together.
 
 
 ## 🛠️ Tech Stack

@@ -14,13 +14,24 @@ function Footer() {
             <h3>Quick Links</h3>
             <ul className="footer-links">
               <li>
-                <a href="/problems">Practice Problems</a>
+                <a href="/">Home</a>
               </li>
               <li>
-                <a href="/competitions">Competitions</a>
+                <a href="/about">About</a>
               </li>
               <li>
-                <a href="/resources">Resources</a>
+                <a 
+                  href="https://www.instagram.com/scpc_usyd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Instagram</a>
+              </li>
+              <li>
+                <a 
+                  href="https://discord.gg/uhZbmVcpS7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Discord</a>
               </li>
             </ul>
           </div>

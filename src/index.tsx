@@ -4,10 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import About from './About';
-import Events from './Events';
-import Challenges from './Challenges';
-import Challenge from './Challenge';
-import Admin from './Admin';
+import Gym from './Gym';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -19,10 +16,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about" element={<About />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/challenges" element={<Challenges />} />
-        <Route path="/challenges/:challengeId" element={<Challenge />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/gym" element={<Gym />} />
       </Routes>
     </Router>
   </React.StrictMode>
