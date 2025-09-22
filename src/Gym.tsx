@@ -273,14 +273,22 @@ function Gym() {
                 </p>
               </header>
               <div className="space-y-3">
-                {leetcodeSets.map((set, index) => (
-                  <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
-                    <Accordion title={set.title} defaultOpen={index === 0}>
-                      <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                      {renderProblems(set.problems, set.title, 'LeetCode')}
-                    </Accordion>
-                  </div>
-                ))}
+                {leetcodeSets.map((set, index) => {
+                  const setCompleted =
+                    hasHydrated &&
+                    set.problems.every((problem) =>
+                      completedProblems[getProblemKey('LeetCode', set.title, problem.label)]
+                    );
+
+                  return (
+                    <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
+                      <Accordion title={set.title} defaultOpen={index === 0} isComplete={setCompleted}>
+                        <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                        {renderProblems(set.problems, set.title, 'LeetCode')}
+                      </Accordion>
+                    </div>
+                  );
+                })}
               </div>
             </article>
 
@@ -292,14 +300,22 @@ function Gym() {
                 </p>
               </header>
               <div className="space-y-3">
-                {codeforcesSets.map((set, index) => (
-                  <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
-                    <Accordion title={set.title} defaultOpen={index === 0}>
-                      <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                      {renderProblems(set.problems, set.title, 'Codeforces')}
-                    </Accordion>
-                  </div>
-                ))}
+                {codeforcesSets.map((set, index) => {
+                  const setCompleted =
+                    hasHydrated &&
+                    set.problems.every((problem) =>
+                      completedProblems[getProblemKey('Codeforces', set.title, problem.label)]
+                    );
+
+                  return (
+                    <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
+                      <Accordion title={set.title} defaultOpen={index === 0} isComplete={setCompleted}>
+                        <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                        {renderProblems(set.problems, set.title, 'Codeforces')}
+                      </Accordion>
+                    </div>
+                  );
+                })}
               </div>
             </article>
           </section>
