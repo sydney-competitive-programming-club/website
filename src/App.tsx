@@ -1,54 +1,101 @@
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { FaInstagram, FaDiscord } from 'react-icons/fa';
+import { SiCodeforces } from 'react-icons/si';
+import { LuDumbbell } from 'react-icons/lu';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { useScrollToTop } from './hooks/useScrollToTop';
-import './App.css';
+
+interface ActionLinkProps {
+  href: string;
+  label: string;
+  icon: ReactNode;
+  as?: 'a' | 'link';
+}
 
 function App() {
   useScrollToTop();
 
   return (
-    <div className="app">
-      <Header hideLogoWhenHeroVisible={true} />
+    <div className="min-h-screen">
+      <Header hideLogoWhenHeroVisible />
 
-      <main>
-        <div className="hero">
-          <img src="/logo_full_white_4x.png" alt="Sydney Competitive Programming Club" className="hero-logo" />
+      <main className="relative isolate pt-28 pb-24">
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 flex justify-center">
+          <div className="h-72 w-72 translate-y-[-50%] rounded-full bg-orange-400/20 blur-[160px]" />
+        </div>
 
-          <div className="home-actions">
-            <div className="actions-container">
-              <a 
-                href="https://www.instagram.com/scpc_usyd/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="action-button instagram"
-              >
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C8.396 0 8.002.01 6.78.048 2.979.206.206 2.979.048 6.78.01 8.002 0 8.396 0 12.017c0 3.624.01 4.021.048 5.242.158 3.8 2.931 6.574 6.732 6.732 1.222.038 1.618.048 5.242.048 3.624 0 4.021-.01 5.242-.048 3.8-.158 6.574-2.931 6.732-6.732.038-1.221.048-1.618.048-5.242 0-3.624-.01-4.021-.048-5.242C23.832 2.979 21.062.206 17.259.048 16.037.01 15.641 0 12.017 0zM12.017 2.17c3.556 0 3.97.01 5.37.048 2.948.134 4.282 1.481 4.415 4.415.038 1.399.048 1.813.048 5.37 0 3.556-.01 3.97-.048 5.37-.134 2.948-1.481 4.282-4.415 4.415-1.399.038-1.813.048-5.37.048-3.556 0-3.97-.01-5.37-.048-2.948-.134-4.282-1.481-4.415-4.415-.038-1.399-.048-1.813-.048-5.37 0-3.556.01-3.97.048-5.37.134-2.948 1.481-4.282 4.415-4.415 1.399-.038 1.813-.048 5.37-.048zm0 3.692c-3.13 0-5.657 2.527-5.657 5.657 0 3.13 2.527 5.657 5.657 5.657 3.13 0 5.657-2.527 5.657-5.657 0-3.13-2.527-5.657-5.657-5.657zm0 9.315c-2.021 0-3.658-1.637-3.658-3.658 0-2.021 1.637-3.658 3.658-3.658 2.021 0 3.658 1.637 3.658 3.658 0 2.021-1.637 3.658-3.658 3.658zm7.188-9.539c0 .731-.593 1.324-1.324 1.324-.731 0-1.324-.593-1.324-1.324 0-.731.593-1.324 1.324-1.324.731 0 1.324.593 1.324 1.324z"/>
-                </svg>
-                <span>Follow on Instagram</span>
-              </a>
-
-              <a href="https://discord.gg/uhZbmVcpS7" target="_blank" rel="noopener noreferrer" className="action-button discord">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/>
-                </svg>
-                <span>Join the Discord</span>
-              </a>
-
-              <Link to="/gym" className="action-button gym">
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>Explore the Practice Gym</span>
-              </Link>
+        <section className="mx-auto flex min-h-[calc(100vh-200px)] max-w-6xl flex-col items-center justify-center gap-14 px-6 text-center">
+          <div className="space-y-10">
+            <img
+              src="/logo_full_white_4x.png"
+              alt="Sydney Competitive Programming Club"
+              className="hero-logo mx-auto w-full max-w-[44rem] drop-shadow-[0_26px_70px_rgba(15,23,42,0.55)]"
+            />
+            <div className="space-y-5">
+              <h1 className="text-4xl font-semibold tracking-tight text-white md:text-5xl">
+                Solve harder problems with people who get it.
+              </h1>
+              <p className="mx-auto max-w-2xl text-sm leading-7 text-white/70">
+                Weekly sessions, curated practice sets, and a supportive crew at the University of Sydney who love cracking problems together.
+                Jump in for interview prep, contest reps, or just to get better at building things fast.
+              </p>
             </div>
           </div>
-        </div>
+
+          <div className="grid w-full gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <ActionLink
+              href="https://www.instagram.com/scpc_usyd/"
+              label="Follow on Instagram"
+              icon={<FaInstagram />}
+            />
+            <ActionLink
+              href="https://discord.gg/uhZbmVcpS7"
+              label="Join the Discord"
+              icon={<FaDiscord />}
+            />
+            <ActionLink
+              href="/gym"
+              label="Explore Practice Gym"
+              icon={<LuDumbbell />}
+              as="link"
+            />
+            <ActionLink
+              href="https://codeforces.com/"
+              label="Compete on Codeforces"
+              icon={<SiCodeforces />}
+            />
+          </div>
+          <p className="text-xs uppercase tracking-[0.35em] text-white/40">
+            Weekly Tuesday · J12 SIT Lecture Room 123 · Open to everyone
+          </p>
+        </section>
       </main>
 
       <Footer />
     </div>
+  );
+}
+
+function ActionLink({ href, label, icon, as = 'a' }: ActionLinkProps) {
+  const baseClass =
+    'group flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm font-semibold text-white transition hover:-translate-y-1 hover:bg-white/[0.12] hover:shadow-lg hover:shadow-orange-500/10 backdrop-blur';
+
+  if (as === 'link') {
+    return (
+      <Link to={href} className={baseClass}>
+        <span className="text-lg text-orange-300 transition group-hover:text-orange-200">{icon}</span>
+        <span className="text-white/80 group-hover:text-white">{label}</span>
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={baseClass}>
+      <span className="text-lg text-orange-300 transition group-hover:text-orange-200">{icon}</span>
+      <span className="text-white/80 group-hover:text-white">{label}</span>
+    </a>
   );
 }
 

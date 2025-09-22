@@ -3,12 +3,12 @@ import Footer from './components/Footer';
 import Accordion from './components/Accordion';
 import { useScrollToTop } from './hooks/useScrollToTop';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
-import './Gym.css';
 
-const slugify = (name: string) => name
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '');
+const slugify = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 
 interface PracticeSet {
   title: string;
@@ -114,7 +114,7 @@ const codeforcesSets: PracticeSet[] = [
     title: 'Binary Search Pack',
     description: 'Classic array + binary search puzzles for quick contest reps.',
     problems: [
-      { label: '706B · Interesting drink', href: 'https://codeforces.com/problemset/problem/706/B' },
+      { label: '706B · Interesting Drink', href: 'https://codeforces.com/problemset/problem/706/B' },
       { label: '279B · Books', href: 'https://codeforces.com/problemset/problem/279/B' },
       { label: '1485A · Add and Divide', href: 'https://codeforces.com/problemset/problem/1485/A' },
       { label: '812C · Sagheer and Nubian Market', href: 'https://codeforces.com/problemset/problem/812/C' },
@@ -128,64 +128,65 @@ function Gym() {
   useScrollToTop();
   useScrollAnimations('[data-aos="fade-up"]');
 
+  const renderProblems = (problems: PracticeSet['problems']) => (
+    <ul className="mt-3 space-y-2 text-sm text-white/70">
+      {problems.map((problem) => (
+        <li key={problem.label}>
+          <a href={problem.href} target="_blank" rel="noopener noreferrer" className="text-orange-300 transition hover:text-orange-200">
+            {problem.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <div className="app gym-page">
+    <div className="min-h-screen">
       <Header />
 
-      <main>
-        <div className="gym-shell">
-          <section className="gym-hero" data-aos="fade-up">
-            <div className="gym-hero-text">
-              <h1>Practice Gym</h1>
-              <p>
-                A relaxed hub of curated practice sets. Expand a block, grab a couple of problems, and sync up with the crew when you want company.
-              </p>
-            </div>
+      <main className="pt-32 pb-20">
+        <div className="mx-auto flex max-w-5xl flex-col gap-14 px-6 text-white/80">
+          <section className="mx-auto max-w-3xl space-y-5 text-center">
+            <h1 className="text-3xl font-semibold text-white">Practice Gym</h1>
+            <p className="text-sm leading-7 text-white/70">
+              Curated ladders that keep everyone on the same page. Expand a block, pick what you want to tackle, and log wins together in Discord.
+            </p>
           </section>
 
-          <section className="gym-doc" data-aos="fade-up">
-            <article className="gym-section">
-              <h2>LeetCode Circuit</h2>
-              <p>
-                We break LeetCode practice into themed blocks. Pick whichever feels right for your current focus and expand it when you&apos;re ready.
-              </p>
-              {leetCodeSets.map((set, index) => (
-                <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
-                  <p>{set.description}</p>
-                  <ul>
-                    {set.problems.map((problem) => (
-                      <li key={problem.label}>
-                        <a href={problem.href} target="_blank" rel="noopener noreferrer" className="gym-link">
-                          {problem.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </Accordion>
-              ))}
+          <section className="space-y-12">
+            <article className="space-y-5">
+              <header className="space-y-2">
+                <h2 className="text-2xl font-semibold text-white">LeetCode Circuit</h2>
+                <p className="text-sm leading-7 text-white/70">
+                  We stack LeetCode practice into themed blocks. Expand one to pick what you want to focus on this week.
+                </p>
+              </header>
+              <div className="space-y-3">
+                {leetCodeSets.map((set, index) => (
+                  <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
+                    <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                    {renderProblems(set.problems)}
+                  </Accordion>
+                ))}
+              </div>
             </article>
 
-            <article className="gym-section" data-aos="fade-up">
-              <h2>Codeforces Ladders</h2>
-              <p>
-                Pair these ladders with live contests. Expand a ladder to get a short list of problems for the week.
-              </p>
-              {codeforcesSets.map((set, index) => (
-                <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
-                  <p>{set.description}</p>
-                  <ul>
-                    {set.problems.map((problem) => (
-                      <li key={problem.label}>
-                        <a href={problem.href} target="_blank" rel="noopener noreferrer" className="gym-link">
-                          {problem.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </Accordion>
-              ))}
+            <article className="space-y-5">
+              <header className="space-y-2">
+                <h2 className="text-2xl font-semibold text-white">Codeforces Ladders</h2>
+                <p className="text-sm leading-7 text-white/70">
+                  Pair these ladders with live contests. Expand a tier and aim to finish a handful before the next meet-up.
+                </p>
+              </header>
+              <div className="space-y-3">
+                {codeforcesSets.map((set, index) => (
+                  <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
+                    <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                    {renderProblems(set.problems)}
+                  </Accordion>
+                ))}
+              </div>
             </article>
-
           </section>
         </div>
       </main>
