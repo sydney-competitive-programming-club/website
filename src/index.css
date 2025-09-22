@@ -68,4 +68,9 @@
     animation: lucky-pop 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     will-change: transform, opacity;
   }
+
+  .font-gym-title {
+    font-family: 'Zalando Sans Expanded', 'Inter', 'Segoe UI', system-ui, sans-serif;
+    letter-spacing: 0.01em;
+  }
 }

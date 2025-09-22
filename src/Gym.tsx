@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { LuSparkles } from 'react-icons/lu';
+import { useEffect, useState } from 'react';
+import { LuCheck, LuSparkles } from 'react-icons/lu';
 import practiceSetsRaw from './data/practiceSets.json';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -30,14 +30,30 @@ type PracticePlatform = 'LeetCode' | 'Codeforces';
 interface LuckyProblem extends PracticeProblem {
   setTitle: string;
   platform: PracticePlatform;
+  storageKey: string;
 }
+
+const STORAGE_KEY = 'scpc-gym-progress';
+
+const getProblemKey = (platform: PracticePlatform, setTitle: string, label: string) =>
+  `${platform}::${setTitle}::${label}`;
 
 const practiceProblemPool: LuckyProblem[] = [
   ...leetcodeSets.flatMap((set) =>
-    set.problems.map((problem) => ({ ...problem, setTitle: set.title, platform: 'LeetCode' as PracticePlatform }))
+    set.problems.map((problem) => ({
+      ...problem,
+      setTitle: set.title,
+      platform: 'LeetCode' as PracticePlatform,
+      storageKey: getProblemKey('LeetCode', set.title, problem.label),
+    }))
   ),
   ...codeforcesSets.flatMap((set) =>
-    set.problems.map((problem) => ({ ...problem, setTitle: set.title, platform: 'Codeforces' as PracticePlatform }))
+    set.problems.map((problem) => ({
+      ...problem,
+      setTitle: set.title,
+      platform: 'Codeforces' as PracticePlatform,
+      storageKey: getProblemKey('Codeforces', set.title, problem.label),
+    }))
   )
 ];
 
@@ -46,6 +62,32 @@ function Gym() {
   useScrollAnimations('[data-aos="fade-up"]');
   const [luckyProblem, setLuckyProblem] = useState<LuckyProblem | null>(null);
   const [luckyProblemKey, setLuckyProblemKey] = useState(0);
+  const [completedProblems, setCompletedProblems] = useState<Record<string, boolean>>({});
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored) as Record<string, boolean>;
+        setCompletedProblems(parsed);
+      }
+    } catch (error) {
+      console.warn('Failed to load practice progress from localStorage', error);
+    } finally {
+      setHasHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated || typeof window === 'undefined') return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(completedProblems));
+    } catch (error) {
+      console.warn('Failed to persist practice progress to localStorage', error);
+    }
+  }, [completedProblems, hasHydrated]);
 
   const handleLuckyClick = () => {
     if (practiceProblemPool.length === 0) {
@@ -58,23 +100,86 @@ function Gym() {
     setLuckyProblemKey((prev) => prev + 1);
   };
 
-  const renderProblems = (problems: PracticeSet['problems']) => (
+  const toggleProblem = (key: string) => {
+    if (!hasHydrated) return;
+    setCompletedProblems((prev) => {
+      const next = { ...prev };
+      if (next[key]) {
+        delete next[key];
+      } else {
+        next[key] = true;
+      }
+      return next;
+    });
+  };
+
+  const renderProblems = (
+    problems: PracticeSet['problems'],
+    setTitle: string,
+    platform: PracticePlatform
+  ) => (
     <ul className="mt-3 grid grid-cols-1 gap-2 text-sm text-white/70 md:grid-cols-2 md:gap-3">
-      {problems.map((problem) => (
-        <li key={problem.label}>
-          <a
-            href={problem.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex w-full items-center justify-between gap-3 rounded-lg border border-white/0 bg-white/0 px-3 py-2 font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/10 hover:bg-white/[0.04] hover:text-white"
-          >
-            <span className="text-left leading-5">{problem.label}</span>
-            <span className="text-xs text-orange-300 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-orange-200">→</span>
-          </a>
-        </li>
-      ))}
+      {problems.map((problem) => {
+        const problemKey = getProblemKey(platform, setTitle, problem.label);
+        const isCompleted = Boolean(completedProblems[problemKey]);
+
+        return (
+          <li key={problemKey}>
+            <div
+              className={`group flex items-center gap-3 rounded-lg border px-3 py-2 transition-all duration-200 hover:-translate-y-0.5 ${
+                isCompleted
+                  ? 'border-emerald-400/30 bg-emerald-500/10'
+                  : 'border-white/0 bg-white/0 hover:border-white/10 hover:bg-white/[0.04]'
+              }`}
+            >
+              <button
+                type="button"
+                aria-pressed={isCompleted}
+                aria-label={`${isCompleted ? 'Mark as incomplete' : 'Mark as complete'} for ${problem.label}`}
+                onClick={() => toggleProblem(problemKey)}
+                disabled={!hasHydrated}
+                className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-300/60 focus:ring-offset-0 ${
+                  isCompleted
+                    ? 'border-emerald-400 bg-emerald-500/20 text-emerald-200 shadow-inner shadow-emerald-400/40'
+                    : 'border-white/20 text-white/40 hover:border-white/40 hover:text-white/70'
+                }`}
+              >
+                <LuCheck className="h-4 w-4" />
+              </button>
+
+              <a
+                href={problem.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-1 items-center justify-between gap-2"
+              >
+                <span
+                  className={`text-left text-sm font-medium leading-5 transition-colors duration-200 ${
+                    isCompleted ? 'text-white/50 line-through' : 'text-white/80 group-hover:text-white'
+                  }`}
+                >
+                  {problem.label}
+                </span>
+                <span
+                  className={`text-xs transition-transform duration-200 ${
+                    isCompleted
+                      ? 'text-white/40'
+                      : 'text-orange-300 group-hover:translate-x-1 group-hover:text-orange-200'
+                  }`}
+                >
+                  →
+                </span>
+              </a>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
+
+  const luckyProblemCompleted = luckyProblem
+    ? Boolean(completedProblems[luckyProblem.storageKey])
+    : false;
 
   return (
     <div className="min-h-screen">
@@ -92,7 +197,7 @@ function Gym() {
                 Practice
               </span>
               <h1 className="text-4xl font-semibold text-white md:text-5xl">
-                <span className="bg-gradient-to-br from-orange-200 via-pink-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_12px_45px_rgba(244,114,182,0.35)]">
+                <span className="font-gym-title bg-gradient-to-br from-orange-200 via-pink-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_12px_45px_rgba(244,114,182,0.35)]">
                   Practice Gym
                 </span>
               </h1>
@@ -125,16 +230,37 @@ function Gym() {
                     <span className="text-white/30">•</span>
                     <span>{luckyProblem.setTitle}</span>
                   </div>
-                  <h3 className="mt-3 text-lg font-semibold text-white">{luckyProblem.label}</h3>
-                  <a
-                    href={luckyProblem.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange-300 transition hover:text-orange-200"
+                  <h3
+                    className={`mt-3 text-lg font-semibold ${
+                      luckyProblemCompleted ? 'text-white/50 line-through' : 'text-white'
+                    }`}
                   >
-                    Open problem
-                    <span className="text-base">→</span>
-                  </a>
+                    {luckyProblem.label}
+                  </h3>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => toggleProblem(luckyProblem.storageKey)}
+                      disabled={!hasHydrated}
+                      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-orange-300/60 focus:ring-offset-0 ${
+                        luckyProblemCompleted
+                          ? 'border-emerald-400/40 bg-emerald-500/20 text-emerald-200 hover:border-emerald-400 hover:bg-emerald-500/25'
+                          : 'border-white/20 bg-white/5 text-white/70 hover:border-white/40 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      <LuCheck className="h-4 w-4" />
+                      {luckyProblemCompleted ? 'Marked done' : 'Mark as done'}
+                    </button>
+                    <a
+                      href={luckyProblem.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-orange-300 transition hover:text-orange-200"
+                    >
+                      Open problem
+                      <span className="text-base">→</span>
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
@@ -151,7 +277,7 @@ function Gym() {
                   <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
                     <Accordion title={set.title} defaultOpen={index === 0}>
                       <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                      {renderProblems(set.problems)}
+                      {renderProblems(set.problems, set.title, 'LeetCode')}
                     </Accordion>
                   </div>
                 ))}
@@ -170,7 +296,7 @@ function Gym() {
                   <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
                     <Accordion title={set.title} defaultOpen={index === 0}>
                       <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                      {renderProblems(set.problems)}
+                      {renderProblems(set.problems, set.title, 'Codeforces')}
                     </Accordion>
                   </div>
                 ))}
