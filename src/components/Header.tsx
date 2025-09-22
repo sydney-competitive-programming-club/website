@@ -33,86 +33,129 @@ function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setIsMobileOpen(false);
+      }
+    };
+
+    if (mediaQuery.matches) {
+      setIsMobileOpen(false);
+    }
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      mediaQuery.addListener(handleChange);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
+
   const headerShellClass = `pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 transition-transform duration-300 ${
     isScrolled ? 'translate-y-0' : 'translate-y-1'
   }`;
 
-  const pillClass = `pointer-events-auto flex w-full max-w-5xl items-center justify-between gap-4 rounded-full border px-5 py-3 transition-all duration-300 ${
-    isScrolled ? 'border-white/12 bg-slate-950/85 backdrop-blur-xl shadow-xl shadow-black/15' : 'border-transparent bg-transparent'
+  const pillClass = `flex w-full items-center justify-between gap-4 rounded-full border px-5 py-3 transition-all duration-300 ${
+    isScrolled
+      ? 'border-white/12 bg-slate-950/85 backdrop-blur-xl shadow-xl shadow-black/15'
+      : 'border-transparent bg-transparent'
   }`;
 
   return (
     <header className={headerShellClass}>
-      <div className={pillClass}>
-        <nav className="hidden items-center gap-2 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <NavLink key={item.to} to={item.to} className={buttonClass}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <button
-          type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
-          onClick={() => setIsMobileOpen((prev) => !prev)}
-          aria-label="Toggle navigation"
+      <div className="relative w-full max-w-5xl pointer-events-auto">
+        <div
+          className={`${pillClass} ${
+            isMobileOpen
+              ? 'rounded-b-none border-white/12 bg-slate-950/90 backdrop-blur-xl shadow-xl shadow-black/20'
+              : ''
+          }`}
         >
-          <span className="relative block h-3.5 w-5">
-            <span
-              className={`absolute inset-x-0 top-0 h-0.5 bg-white transition ${
-                isMobileOpen ? 'translate-y-1.5 rotate-45' : ''
-              }`}
-            />
-            <span
-              className={`absolute inset-x-0 top-1.5 h-0.5 bg-white transition ${
-                isMobileOpen ? 'opacity-0' : ''
-              }`}
-            />
-            <span
-              className={`absolute inset-x-0 bottom-0 h-0.5 bg-white transition ${
-                isMobileOpen ? '-translate-y-1.5 -rotate-45' : ''
-              }`}
-            />
-          </span>
-        </button>
+          <nav className="hidden items-center gap-2 md:flex">
+            {NAV_ITEMS.map((item) => (
+              <NavLink key={item.to} to={item.to} className={buttonClass}>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
 
-        <a
-          href="https://discord.gg/uhZbmVcpS7"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white md:flex"
-        >
-          <FaDiscord className="h-4 w-4" />
-          Join Discord
-        </a>
-      </div>
-
-      <div
-        className={`md:hidden ${
-          isMobileOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-        } transition-opacity duration-200 ease-out`}
-      >
-        <div className="space-y-2 border-t border-white/10 bg-slate-950/95 px-6 pb-6 pt-4">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={mobileButtonClass}
-              onClick={() => setIsMobileOpen(false)}
+          <div className="flex flex-1 items-center justify-end gap-3 md:flex-none">
+            <button
+              type="button"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
+              onClick={() => setIsMobileOpen((prev) => !prev)}
+              aria-label="Toggle navigation"
             >
-              {item.label}
-            </NavLink>
-          ))}
-          <a
-            href="https://discord.gg/uhZbmVcpS7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-base font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white"
-          >
-            <FaDiscord className="h-4 w-4" />
-            Join Discord
-          </a>
+              <span className="relative block h-3.5 w-5">
+                <span
+                  className={`absolute inset-x-0 top-0 h-0.5 bg-white transition ${
+                    isMobileOpen ? 'translate-y-1.5 rotate-45' : ''
+                  }`}
+                />
+                <span
+                  className={`absolute inset-x-0 top-1.5 h-0.5 bg-white transition ${
+                    isMobileOpen ? 'opacity-0' : ''
+                  }`}
+                />
+                <span
+                  className={`absolute inset-x-0 bottom-0 h-0.5 bg-white transition ${
+                    isMobileOpen ? '-translate-y-1.5 -rotate-45' : ''
+                  }`}
+                />
+              </span>
+            </button>
+
+            <a
+              href="https://discord.gg/uhZbmVcpS7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white md:flex"
+            >
+              <FaDiscord className="h-4 w-4" />
+              Join Discord
+            </a>
+          </div>
+        </div>
+
+        <div
+          className={`md:hidden absolute left-0 right-0 ${
+            isMobileOpen
+              ? 'pointer-events-auto translate-y-2 opacity-100'
+              : 'pointer-events-none -translate-y-1 opacity-0'
+          } transition-all duration-200 ease-out`}
+        >
+          <div className="rounded-3xl border border-white/12 bg-slate-950/95 px-6 pb-6 pt-4 shadow-lg shadow-black/25">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={mobileButtonClass}
+                onClick={() => setIsMobileOpen(false)}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <a
+              href="https://discord.gg/uhZbmVcpS7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-base font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white"
+            >
+              <FaDiscord className="h-4 w-4" />
+              Join Discord
+            </a>
+          </div>
         </div>
       </div>
     </header>
