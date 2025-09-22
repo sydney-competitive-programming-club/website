@@ -1,0 +1,225 @@
+{
+  "leetcodeSets": [
+    {
+      "title": "Foundations",
+      "description": "Warm up with data-structure staples and quick wins to build confidence.",
+      "problems": [
+        { "label": "#1 · Two Sum", "href": "https://leetcode.com/problems/two-sum/" },
+        { "label": "#20 · Valid Parentheses", "href": "https://leetcode.com/problems/valid-parentheses/" },
+        { "label": "#704 · Binary Search", "href": "https://leetcode.com/problems/binary-search/" },
+        { "label": "#206 · Reverse Linked List", "href": "https://leetcode.com/problems/reverse-linked-list/" },
+        { "label": "#121 · Best Time to Buy and Sell Stock", "href": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+        { "label": "#53 · Maximum Subarray", "href": "https://leetcode.com/problems/maximum-subarray/" },
+        { "label": "#141 · Linked List Cycle", "href": "https://leetcode.com/problems/linked-list-cycle/" }
+      ]
+    },
+    {
+      "title": "Core Patterns",
+      "description": "Introduce sliding window, counting, and recursion patterns that appear everywhere.",
+      "problems": [
+        { "label": "#3 · Longest Substring Without Repeating Characters", "href": "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+        { "label": "#347 · Top K Frequent Elements", "href": "https://leetcode.com/problems/top-k-frequent-elements/" },
+        { "label": "#39 · Combination Sum", "href": "https://leetcode.com/problems/combination-sum/" },
+        { "label": "#46 · Permutations", "href": "https://leetcode.com/problems/permutations/" },
+        { "label": "#79 · Word Search", "href": "https://leetcode.com/problems/word-search/" },
+        { "label": "#438 · Find All Anagrams in a String", "href": "https://leetcode.com/problems/find-all-anagrams-in-a-string/" },
+        { "label": "#560 · Subarray Sum Equals K", "href": "https://leetcode.com/problems/subarray-sum-equals-k/" }
+      ]
+    },
+    {
+      "title": "Contest Readiness",
+      "description": "Longer implementations and trickier case analysis to mimic ICPC/CF-style thinking.",
+      "problems": [
+        { "label": "#295 · Find Median from Data Stream", "href": "https://leetcode.com/problems/find-median-from-data-stream/" },
+        { "label": "#301 · Remove Invalid Parentheses", "href": "https://leetcode.com/problems/remove-invalid-parentheses/" },
+        { "label": "#212 · Word Search II", "href": "https://leetcode.com/problems/word-search-ii/" },
+        { "label": "#76 · Minimum Window Substring", "href": "https://leetcode.com/problems/minimum-window-substring/" },
+        { "label": "#51 · N-Queens", "href": "https://leetcode.com/problems/n-queens/" },
+        { "label": "#224 · Basic Calculator", "href": "https://leetcode.com/problems/basic-calculator/" },
+        { "label": "#84 · Largest Rectangle in Histogram", "href": "https://leetcode.com/problems/largest-rectangle-in-histogram/" }
+      ]
+    },
+    {
+      "title": "Graphs & Trees",
+      "description": "Traverse, search, and reason about connectivity and hierarchy.",
+      "problems": [
+        { "label": "#200 · Number of Islands", "href": "https://leetcode.com/problems/number-of-islands/" },
+        { "label": "#133 · Clone Graph", "href": "https://leetcode.com/problems/clone-graph/" },
+        { "label": "#543 · Diameter of Binary Tree", "href": "https://leetcode.com/problems/diameter-of-binary-tree/" },
+        { "label": "#437 · Path Sum III", "href": "https://leetcode.com/problems/path-sum-iii/" },
+        { "label": "#329 · Longest Increasing Path in a Matrix", "href": "https://leetcode.com/problems/longest-increasing-path-in-a-matrix/" },
+        { "label": "#310 · Minimum Height Trees", "href": "https://leetcode.com/problems/minimum-height-trees/" }
+      ]
+    },
+    {
+      "title": "Dynamic Programming Essentials",
+      "description": "Classic DP transitions for 1D, knapsack, and subsequence style problems.",
+      "problems": [
+        { "label": "#70 · Climbing Stairs", "href": "https://leetcode.com/problems/climbing-stairs/" },
+        { "label": "#198 · House Robber", "href": "https://leetcode.com/problems/house-robber/" },
+        { "label": "#322 · Coin Change", "href": "https://leetcode.com/problems/coin-change/" },
+        { "label": "#300 · Longest Increasing Subsequence", "href": "https://leetcode.com/problems/longest-increasing-subsequence/" },
+        { "label": "#416 · Partition Equal Subset Sum", "href": "https://leetcode.com/problems/partition-equal-subset-sum/" },
+        { "label": "#494 · Target Sum", "href": "https://leetcode.com/problems/target-sum/" },
+        { "label": "#518 · Coin Change II", "href": "https://leetcode.com/problems/coin-change-ii/" }
+      ]
+    },
+    {
+      "title": "Greedy & Intervals",
+      "description": "Speed through scheduling, coverage, and sorting-by-rule style questions.",
+      "problems": [
+        { "label": "#45 · Jump Game II", "href": "https://leetcode.com/problems/jump-game-ii/" },
+        { "label": "#56 · Merge Intervals", "href": "https://leetcode.com/problems/merge-intervals/" },
+        { "label": "#1288 · Remove Covered Intervals", "href": "https://leetcode.com/problems/remove-covered-intervals/" },
+        { "label": "#253 · Meeting Rooms II", "href": "https://leetcode.com/problems/meeting-rooms-ii/" },
+        { "label": "#1029 · Two City Scheduling", "href": "https://leetcode.com/problems/two-city-scheduling/" },
+        { "label": "#763 · Partition Labels", "href": "https://leetcode.com/problems/partition-labels/" },
+        { "label": "#621 · Task Scheduler", "href": "https://leetcode.com/problems/task-scheduler/" }
+      ]
+    },
+    {
+      "title": "Range Queries & Data Structures",
+      "description": "Segment trees, prefix techniques, and structure-heavy implementations.",
+      "problems": [
+        { "label": "#307 · Range Sum Query - Mutable", "href": "https://leetcode.com/problems/range-sum-query-mutable/" },
+        { "label": "#221 · Maximal Square", "href": "https://leetcode.com/problems/maximal-square/" },
+        { "label": "#239 · Sliding Window Maximum", "href": "https://leetcode.com/problems/sliding-window-maximum/" },
+        { "label": "#208 · Implement Trie (Prefix Tree)", "href": "https://leetcode.com/problems/implement-trie-prefix-tree/" },
+        { "label": "#295 · Find Median from Data Stream", "href": "https://leetcode.com/problems/find-median-from-data-stream/" },
+        { "label": "#732 · My Calendar III", "href": "https://leetcode.com/problems/my-calendar-iii/" },
+        { "label": "#1202 · Smallest String With Swaps", "href": "https://leetcode.com/problems/smallest-string-with-swaps/" }
+      ]
+    },
+    {
+      "title": "Advanced Graph Theory",
+      "description": "Push deeper into traversal, connectivity, and graph constructions.",
+      "problems": [
+        { "label": "#127 · Word Ladder", "href": "https://leetcode.com/problems/word-ladder/" },
+        { "label": "#332 · Reconstruct Itinerary", "href": "https://leetcode.com/problems/reconstruct-itinerary/" },
+        { "label": "#863 · All Nodes Distance K in Binary Tree", "href": "https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/" },
+        { "label": "#1192 · Critical Connections in a Network", "href": "https://leetcode.com/problems/critical-connections-in-a-network/" },
+        { "label": "#2096 · Step-By-Step Directions From a Binary Tree Node to Another", "href": "https://leetcode.com/problems/step-by-step-directions-from-a-binary-tree-node-to-another/" },
+        { "label": "#261 · Graph Valid Tree", "href": "https://leetcode.com/problems/graph-valid-tree/" },
+        { "label": "#778 · Swim in Rising Water", "href": "https://leetcode.com/problems/swim-in-rising-water/" }
+      ]
+    },
+    {
+      "title": "Bit Manipulation & Math",
+      "description": "Refresh parity, masks, and math-heavy bit tricks.",
+      "problems": [
+        { "label": "#191 · Number of 1 Bits", "href": "https://leetcode.com/problems/number-of-1-bits/" },
+        { "label": "#136 · Single Number", "href": "https://leetcode.com/problems/single-number/" },
+        { "label": "#338 · Counting Bits", "href": "https://leetcode.com/problems/counting-bits/" },
+        { "label": "#201 · Bitwise AND of Numbers Range", "href": "https://leetcode.com/problems/bitwise-and-of-numbers-range/" },
+        { "label": "#268 · Missing Number", "href": "https://leetcode.com/problems/missing-number/" },
+        { "label": "#421 · Maximum XOR of Two Numbers in an Array", "href": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/" },
+        { "label": "#1310 · XOR Queries of a Subarray", "href": "https://leetcode.com/problems/xor-queries-of-a-subarray/" }
+      ]
+    }
+  ],
+  "codeforcesSets": [
+    {
+      "title": "Warm-Up",
+      "description": "Fast IO, implementation basics, and the habit of reading carefully.",
+      "problems": [
+        { "label": "4A · Watermelon", "href": "https://codeforces.com/problemset/problem/4/A" },
+        { "label": "71A · Way Too Long Words", "href": "https://codeforces.com/problemset/problem/71/A" },
+        { "label": "231A · Team", "href": "https://codeforces.com/problemset/problem/231/A" },
+        { "label": "282A · Bit++", "href": "https://codeforces.com/problemset/problem/282/A" },
+        { "label": "339A · Helpful Maths", "href": "https://codeforces.com/problemset/problem/339/A" },
+        { "label": "112A · Petya and Strings", "href": "https://codeforces.com/problemset/problem/112/A" },
+        { "label": "133A · HQ9+", "href": "https://codeforces.com/problemset/problem/133/A" }
+      ]
+    },
+    {
+      "title": "Build Speed",
+      "description": "Observation heavy questions—aim to solve 3/5 within 30 minutes each.",
+      "problems": [
+        { "label": "318A · Even Odds", "href": "https://codeforces.com/problemset/problem/318/A" },
+        { "label": "479A · Expression", "href": "https://codeforces.com/problemset/problem/479/A" },
+        { "label": "546A · Soldier and Bananas", "href": "https://codeforces.com/problemset/problem/546/A" },
+        { "label": "520A · Pangram", "href": "https://codeforces.com/problemset/problem/520/A" },
+        { "label": "266A · Stones on the Table", "href": "https://codeforces.com/problemset/problem/266/A" },
+        { "label": "492B · Vanya and Lanterns", "href": "https://codeforces.com/problemset/problem/492/B" },
+        { "label": "1328A · Divisibility Problem", "href": "https://codeforces.com/problemset/problem/1328/A" }
+      ]
+    },
+    {
+      "title": "Contest Sim",
+      "description": "Treat these as timed sets—sit down with a 90-minute clock and compare notes afterwards.",
+      "problems": [
+        { "label": "479C · Exams", "href": "https://codeforces.com/problemset/problem/479/C" },
+        { "label": "520B · Two Buttons", "href": "https://codeforces.com/problemset/problem/520/B" },
+        { "label": "455A · Boredom", "href": "https://codeforces.com/problemset/problem/455/A" },
+        { "label": "580C · Kefa and Park", "href": "https://codeforces.com/problemset/problem/580/C" },
+        { "label": "518D · Ilya and Escalator", "href": "https://codeforces.com/problemset/problem/518/D" },
+        { "label": "1692F · 3SUM", "href": "https://codeforces.com/problemset/problem/1692/F" },
+        { "label": "1605C · Dominant Character", "href": "https://codeforces.com/problemset/problem/1605/C" }
+      ]
+    },
+    {
+      "title": "Binary Search Pack",
+      "description": "Classic array + binary search puzzles for quick contest reps.",
+      "problems": [
+        { "label": "706B · Interesting Drink", "href": "https://codeforces.com/problemset/problem/706/B" },
+        { "label": "279B · Books", "href": "https://codeforces.com/problemset/problem/279/B" },
+        { "label": "1485A · Add and Divide", "href": "https://codeforces.com/problemset/problem/1485/A" },
+        { "label": "812C · Sagheer and Nubian Market", "href": "https://codeforces.com/problemset/problem/812/C" },
+        { "label": "189A · Cut Ribbon", "href": "https://codeforces.com/problemset/problem/189/A" },
+        { "label": "702A · Maximum Increase", "href": "https://codeforces.com/problemset/problem/702/A" }
+      ]
+    },
+    {
+      "title": "Data Structures Rush",
+      "description": "Use BITs, sets, and priority queues to stay on top of online updates.",
+      "problems": [
+        { "label": "61A · Ultra-Fast Mathematician", "href": "https://codeforces.com/problemset/problem/61/A" },
+        { "label": "339D · Xenia and Bit Operations", "href": "https://codeforces.com/problemset/problem/339/D" },
+        { "label": "86C · Genetic Evolution", "href": "https://codeforces.com/problemset/problem/86/C" },
+        { "label": "1191C · Tokitsukaze, CSL and Stone Game", "href": "https://codeforces.com/problemset/problem/1191/C" },
+        { "label": "1307C · Cow and Message", "href": "https://codeforces.com/problemset/problem/1307/C" },
+        { "label": "242E · XOR on Segment", "href": "https://codeforces.com/problemset/problem/242/E" },
+        { "label": "1420C1 · Pokémon Army (easy version)", "href": "https://codeforces.com/problemset/problem/1420/C1" }
+      ]
+    },
+    {
+      "title": "Math & Number Theory",
+      "description": "Modular arithmetic, combinatorics, and constructive math tricks.",
+      "problems": [
+        { "label": "230B · T-primes", "href": "https://codeforces.com/problemset/problem/230/B" },
+        { "label": "584D · Dima and Hares", "href": "https://codeforces.com/problemset/problem/584/D" },
+        { "label": "1392F · Omkar and Landslide", "href": "https://codeforces.com/problemset/problem/1392/F" },
+        { "label": "1359C · Mixing Water", "href": "https://codeforces.com/problemset/problem/1359/C" },
+        { "label": "688B · Lovely Palindromes", "href": "https://codeforces.com/problemset/problem/688/B" },
+        { "label": "1029C · Maximal Intersection", "href": "https://codeforces.com/problemset/problem/1029/C" },
+        { "label": "1556C · Compressed Bracket Sequence", "href": "https://codeforces.com/problemset/problem/1556/C" }
+      ]
+    },
+    {
+      "title": "DP Marathon",
+      "description": "Stick to dynamic programming patterns across increasing difficulty levels.",
+      "problems": [
+        { "label": "550C · Divisibility by Eight", "href": "https://codeforces.com/problemset/problem/550/C" },
+        { "label": "489C · Given Length and Sum of Digits...", "href": "https://codeforces.com/problemset/problem/489/C" },
+        { "label": "455C · Civilization", "href": "https://codeforces.com/problemset/problem/455/C" },
+        { "label": "580D · Kefa and Dishes", "href": "https://codeforces.com/problemset/problem/580/D" },
+        { "label": "607A · Chain Reaction", "href": "https://codeforces.com/problemset/problem/607/A" },
+        { "label": "1744F · Cross Coloring", "href": "https://codeforces.com/problemset/problem/1744/F" },
+        { "label": "1611G1 · Subsequence Addition (easy version)", "href": "https://codeforces.com/problemset/problem/1611/G1" }
+      ]
+    },
+    {
+      "title": "Graphs Expedition",
+      "description": "Mix of trees, shortest paths, and constructive graph tasks.",
+      "problems": [
+        { "label": "1129A2 · Dodging the Train", "href": "https://codeforces.com/problemset/problem/1129/A2" },
+        { "label": "1213G · Path Queries", "href": "https://codeforces.com/problemset/problem/1213/G" },
+        { "label": "1187E · Tree Painting", "href": "https://codeforces.com/problemset/problem/1187/E" },
+        { "label": "1490F · Equalize the Array", "href": "https://codeforces.com/problemset/problem/1490/F" },
+        { "label": "1613C · Poisoned Dagger", "href": "https://codeforces.com/problemset/problem/1613/C" },
+        { "label": "1679C · Rooks Defenders", "href": "https://codeforces.com/problemset/problem/1679/C" },
+        { "label": "1749E · Divide and Multiply", "href": "https://codeforces.com/problemset/problem/1749/E" }
+      ]
+    }
+  ]
+}
