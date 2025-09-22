@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="min-h-screen">
-      <Header hideLogoWhenHeroVisible />
+      <Header />
 
       <main className="relative isolate pt-28 pb-24">
         <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 flex justify-center">

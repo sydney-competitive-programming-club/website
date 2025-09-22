@@ -129,11 +129,17 @@ function Gym() {
   useScrollAnimations('[data-aos="fade-up"]');
 
   const renderProblems = (problems: PracticeSet['problems']) => (
-    <ul className="mt-3 space-y-2 text-sm text-white/70">
+    <ul className="mt-3 grid grid-cols-1 gap-2 text-sm text-white/70 md:grid-cols-2 md:gap-3">
       {problems.map((problem) => (
         <li key={problem.label}>
-          <a href={problem.href} target="_blank" rel="noopener noreferrer" className="text-orange-300 transition hover:text-orange-200">
-            {problem.label}
+          <a
+            href={problem.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex w-full items-center justify-between gap-3 rounded-lg border border-white/0 bg-white/0 px-3 py-2 font-medium text-white/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/10 hover:bg-white/[0.04] hover:text-white"
+          >
+            <span className="text-left leading-5">{problem.label}</span>
+            <span className="text-xs text-orange-300 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-orange-200">→</span>
           </a>
         </li>
       ))}
@@ -147,7 +153,20 @@ function Gym() {
       <main className="pt-32 pb-20">
         <div className="mx-auto flex max-w-5xl flex-col gap-14 px-6 text-white/80">
           <section className="mx-auto max-w-3xl space-y-5 text-center">
-            <h1 className="text-3xl font-semibold text-white">Practice Gym</h1>
+            <div className="relative mx-auto inline-flex flex-col items-center gap-4">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-[-30%] -top-16 h-24 rounded-full bg-gradient-to-r from-orange-500/20 via-pink-400/10 to-indigo-500/20 blur-3xl"
+              />
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
+                Practice
+              </span>
+              <h1 className="text-4xl font-semibold text-white md:text-5xl">
+                <span className="bg-gradient-to-br from-orange-200 via-pink-200 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_12px_45px_rgba(244,114,182,0.35)]">
+                  Practice Gym
+                </span>
+              </h1>
+            </div>
             <p className="text-sm leading-7 text-white/70">
               Curated ladders that keep everyone on the same page. Expand a block, pick what you want to tackle, and log wins together in Discord.
             </p>
@@ -163,10 +182,12 @@ function Gym() {
               </header>
               <div className="space-y-3">
                 {leetCodeSets.map((set, index) => (
-                  <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
-                    <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                    {renderProblems(set.problems)}
-                  </Accordion>
+                  <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
+                    <Accordion title={set.title} defaultOpen={index === 0}>
+                      <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                      {renderProblems(set.problems)}
+                    </Accordion>
+                  </div>
                 ))}
               </div>
             </article>
@@ -180,10 +201,12 @@ function Gym() {
               </header>
               <div className="space-y-3">
                 {codeforcesSets.map((set, index) => (
-                  <Accordion key={set.title} title={set.title} defaultOpen={index === 0}>
-                    <p className="text-sm leading-6 text-white/70">{set.description}</p>
-                    {renderProblems(set.problems)}
-                  </Accordion>
+                  <div key={set.title} data-aos="fade-up" data-aos-delay={`${index * 80}`}>
+                    <Accordion title={set.title} defaultOpen={index === 0}>
+                      <p className="text-sm leading-6 text-white/70">{set.description}</p>
+                      {renderProblems(set.problems)}
+                    </Accordion>
+                  </div>
                 ))}
               </div>
             </article>

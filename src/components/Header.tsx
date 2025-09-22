@@ -1,111 +1,121 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { FaDiscord } from 'react-icons/fa';
 
-interface HeaderProps {
-  hideLogoWhenHeroVisible?: boolean;
-}
+const NAV_ITEMS = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Gym', to: '/gym' },
+];
 
-function Header({ hideLogoWhenHeroVisible = false }: HeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHeroLogoVisible, setIsHeroLogoVisible] = useState(true);
-  const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!hideLogoWhenHeroVisible) return;
-
-    const heroLogo = document.querySelector('.hero-logo');
-    if (!heroLogo) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsHeroLogoVisible(entry.isIntersecting),
-      { threshold: 0.1, rootMargin: '0px 0px -10% 0px' }
-    );
-
-    observer.observe(heroLogo);
-    return () => observer.disconnect();
-  }, [hideLogoWhenHeroVisible]);
-
-  const shouldShowLogo = !hideLogoWhenHeroVisible || !isHeroLogoVisible;
-
-  const baseNavClass = `fixed inset-x-0 top-0 z-50 border-b border-transparent transition-[background-color,border-color,box-shadow] duration-300 sm:duration-500 ${
-    isScrolled ? 'border-white/10 bg-slate-950/85 backdrop-blur-xl shadow-lg shadow-black/20' : 'bg-transparent'
+const buttonClass = ({ isActive }: { isActive: boolean }) =>
+  `flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+    isActive
+      ? 'bg-white/10 text-white'
+      : 'text-white/70 hover:bg-white/5 hover:text-white'
   }`;
 
-  const getLinkClasses = (path: string) => {
-    const isActive = location.pathname === path;
-    return `rounded-lg px-3 py-2 text-sm font-medium transition ${
-      isActive ? 'bg-white/10 text-white' : 'text-white/70 hover:text-white'
-    }`;
-  };
+const mobileButtonClass = ({ isActive }: { isActive: boolean }) =>
+  `flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-base font-semibold transition-colors duration-200 ${
+    isActive
+      ? 'bg-white/10 text-white'
+      : 'text-white/70 hover:bg-white/5 hover:text-white'
+  }`;
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const headerShellClass = `pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 transition-transform duration-300 ${
+    isScrolled ? 'translate-y-0' : 'translate-y-1'
+  }`;
+
+  const pillClass = `pointer-events-auto flex w-full max-w-5xl items-center justify-between gap-4 rounded-full border px-5 py-3 transition-all duration-300 ${
+    isScrolled ? 'border-white/12 bg-slate-950/85 backdrop-blur-xl shadow-xl shadow-black/15' : 'border-transparent bg-transparent'
+  }`;
 
   return (
-    <nav className={baseNavClass}>
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className={`flex items-center transition-opacity ${shouldShowLogo ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <Link to="/">
-            <img src="/logo_full_white_4x.png" alt="SCPC Logo" className={`w-auto transition ${isScrolled ? 'h-8' : 'h-9'}`} />
-          </Link>
-        </div>
-
-        <div className="hidden items-center gap-2 md:flex">
-          <Link to="/" className={getLinkClasses('/')}>Home</Link>
-          <Link to="/about" className={getLinkClasses('/about')}>About</Link>
-          <Link to="/gym" className={getLinkClasses('/gym')}>Gym</Link>
-        </div>
+    <header className={headerShellClass}>
+      <div className={pillClass}>
+        <nav className="hidden items-center gap-2 md:flex">
+          {NAV_ITEMS.map((item) => (
+            <NavLink key={item.to} to={item.to} className={buttonClass}>
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
 
         <button
           type="button"
-          onClick={toggleMobileMenu}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white md:hidden"
-          aria-label="Toggle menu"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white md:hidden"
+          onClick={() => setIsMobileOpen((prev) => !prev)}
+          aria-label="Toggle navigation"
         >
-          <span className="relative block h-3 w-4">
+          <span className="relative block h-3.5 w-5">
             <span
               className={`absolute inset-x-0 top-0 h-0.5 bg-white transition ${
-                isMobileMenuOpen ? 'translate-y-1.5 rotate-45' : ''
+                isMobileOpen ? 'translate-y-1.5 rotate-45' : ''
               }`}
             />
             <span
               className={`absolute inset-x-0 top-1.5 h-0.5 bg-white transition ${
-                isMobileMenuOpen ? 'opacity-0' : ''
+                isMobileOpen ? 'opacity-0' : ''
               }`}
             />
             <span
               className={`absolute inset-x-0 bottom-0 h-0.5 bg-white transition ${
-                isMobileMenuOpen ? '-translate-y-1.5 -rotate-45' : ''
+                isMobileOpen ? '-translate-y-1.5 -rotate-45' : ''
               }`}
             />
           </span>
         </button>
+
+        <a
+          href="https://discord.gg/uhZbmVcpS7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white md:flex"
+        >
+          <FaDiscord className="h-4 w-4" />
+          Join Discord
+        </a>
       </div>
 
       <div
         className={`md:hidden ${
-          isMobileMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        } transition-opacity duration-150`}
+          isMobileOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        } transition-opacity duration-200 ease-out`}
       >
-        <div className="space-y-1 border-t border-white/5 bg-slate-950/95 px-6 pb-6 pt-4">
-          <Link to="/" className={getLinkClasses('/')} onClick={closeMobileMenu}>Home</Link>
-          <Link to="/about" className={getLinkClasses('/about')} onClick={closeMobileMenu}>About</Link>
-          <Link to="/gym" className={getLinkClasses('/gym')} onClick={closeMobileMenu}>Gym</Link>
+        <div className="space-y-2 border-t border-white/10 bg-slate-950/95 px-6 pb-6 pt-4">
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={mobileButtonClass}
+              onClick={() => setIsMobileOpen(false)}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          <a
+            href="https://discord.gg/uhZbmVcpS7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-base font-semibold text-white/70 transition-colors duration-200 hover:bg-white/5 hover:text-white"
+          >
+            <FaDiscord className="h-4 w-4" />
+            Join Discord
+          </a>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }
 
